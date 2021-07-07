@@ -8,6 +8,10 @@ import HyMarquee from "@/components/HyMarquee.vue";
 import HyModal from "@/components/HyModal.vue";
 import HyTabs from "@/components/HyTabs.vue";
 import HyWeblink from "@/components/HyWeblink.vue";
+import HyMeun from "@/components/HyMenu.vue";
+import HyLanguage from "@/components/HyLanguage.vue";
+import HyFontSize from "@/components/HyFontSize.vue";
+import HySearch from "@/components/HySearch.vue";
 import { onMounted } from "@vue/runtime-core";
 
 export default {
@@ -16,6 +20,10 @@ export default {
     HyModal,
     HyTabs,
     HyWeblink,
+    HyMeun,
+    HyLanguage,
+    HyFontSize,
+    HySearch,
   },
   setup() {
     onMounted(() => {});
@@ -27,6 +35,10 @@ export default {
   <div class="wrapper">
     <HyTabs />
     <HyWeblink />
+    <HyMeun />
+    <HyLanguage />
+    <HyFontSize />
+    <HySearch />
     <!-- <HyMarquee /> -->
     <!-- <HyModal /> -->
   </div>

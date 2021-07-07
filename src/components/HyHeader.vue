@@ -1,7 +1,11 @@
 <script>
 import $ from "jquery";
 import { onMounted } from "@vue/runtime-core";
+import HyLanguage from "@/components/HyLanguage.vue";
 export default {
+  components: {
+    HyLanguage,
+  },
   setup() {
     onMounted(() => {
       $(function() {
@@ -59,17 +63,17 @@ export default {
               .focus();
           }
         });
-        //無障礙切換slick箭頭語系
-        if ($("html")[0].hasAttribute("labg")) {
-          var weblang = $("html").attr("lang");
-          if (weblang.substring(0, 2) == "zh") {
-            $(".slick-prev").attr("title", "上一筆");
-            $(".slick-next").attr("title", "下一筆");
-          } else if (weblang.substring(0, 2) !== "zh") {
-            $(".slick-prev").attr("title", "previous");
-            $(".slick-next").attr("title", "next");
-          }
-        }
+        // //無障礙切換slick箭頭語系
+        // if ($("html")[0].hasAttribute("labg")) {
+        //   var weblang = $("html").attr("lang");
+        //   if (weblang.substring(0, 2) == "zh") {
+        //     $(".slick-prev").attr("title", "上一筆");
+        //     $(".slick-next").attr("title", "下一筆");
+        //   } else if (weblang.substring(0, 2) !== "zh") {
+        //     $(".slick-prev").attr("title", "previous");
+        //     $(".slick-next").attr("title", "next");
+        //   }
+        // }
         // 無障礙錨點切換語系，更改accesskey的title名稱
         var weblang = $("html").attr("lang");
         if (weblang.substring(0, 2) == "zh") {
@@ -99,60 +103,41 @@ export default {
             .find(".accesskey")
             .attr("title", "search");
         }
-        /*------------------------------------*/
-        /////gotoCenter on focus跳到 content/////
-        /*------------------------------------*/
-        $("a.goCenter").keydown(function(e) {
-          if (e.which == 13) {
-            $("#aC").focus();
-            $("html, body")
-              .stop(true, true)
-              .animate(
-                {
-                  scrollTop: $(".main")
-                    .find(".accesskey")
-                    .offset().top,
-                },
-                800,
-                "easeOutExpo"
-              );
-          }
-        });
         /*-----------------------------------*/
         //////// 語言模組 無障礙遊走設定  ////////
         /*-----------------------------------*/
-        $(".language")
-          .find("ul")
-          .hide();
-        var openLang = $(".language").children("a");
-        openLang.off().click(function(e) {
-          $(this)
-            .next("ul")
-            .stop(true, true)
-            .slideToggle();
-          e.preventDefault();
-        });
-        openLang.keyup(function() {
-          $(this)
-            .next("ul")
-            .stop(true, true)
-            .slideDown();
-        });
-        $(".language")
-          .find("ul li:last>a")
-          .focusout(function() {
-            $(".language")
-              .find("ul")
-              .hide();
-          });
-        $(document).on("touchend click", function(e) {
-          var target = e.target;
-          if (!$(target).is(".language a")) {
-            $(".language")
-              .find("ul")
-              .hide();
-          }
-        });
+        // $(".language")
+        //   .find("ul")
+        //   .hide();
+        // var openLang = $(".language").children("a");
+        // openLang.off().click(function(e) {
+        //   $(this)
+        //     .next("ul")
+        //     .stop(true, true)
+        //     .slideToggle();
+        //   e.preventDefault();
+        // });
+        // openLang.keyup(function() {
+        //   $(this)
+        //     .next("ul")
+        //     .stop(true, true)
+        //     .slideDown();
+        // });
+        // $(".language")
+        //   .find("ul li:last>a")
+        //   .focusout(function() {
+        //     $(".language")
+        //       .find("ul")
+        //       .hide();
+        //   });
+        // $(document).on("touchend click", function(e) {
+        //   var target = e.target;
+        //   if (!$(target).is(".language a")) {
+        //     $(".language")
+        //       .find("ul")
+        //       .hide();
+        //   }
+        // });
         /*------------------------------------*/
         /////////////字型大小 font-size//////////
         /*------------------------------------*/
@@ -311,14 +296,7 @@ export default {
           </ul>
         </div>
         <!-- language -->
-        <div class="language">
-          <a href="#">語言選擇</a>
-          <ul>
-            <li><a href="#">繁體中文</a></li>
-            <li><a href="#">简体中文</a></li>
-            <li><a href="#">ENGLISH</a></li>
-          </ul>
-        </div>
+        <HyLanguage />
       </nav>
       <!-- navigation End -->
       <h1>
