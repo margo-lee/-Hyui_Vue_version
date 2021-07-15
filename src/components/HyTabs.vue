@@ -1,9 +1,51 @@
 <script>
-import { onMounted } from "@vue/runtime-core";
+import { onMounted, reactive, watch, nextTick } from "@vue/runtime-core";
 import $ from "jquery";
 export default {
   setup() {
+    const arr = reactive({
+      data: [
+        { title: "1第ㄧ則消息", time: "107-01-01" },
+        { title: "第二則消息", time: "107-01-01" },
+        { title: "第三則消息", time: "107-01-01" },
+        { title: "第四則消息", time: "107-01-01" },
+        { title: "第五則消息", time: "107-01-01" },
+      ],
+      data2: [
+        { title: "2第ㄧ則消息", time: "107-01-02" },
+        { title: "第二則消息", time: "107-01-02" },
+        { title: "第三則消息", time: "107-01-02" },
+        { title: "第四則消息", time: "107-01-02" },
+        { title: "第五則消息", time: "107-01-02" },
+      ],
+      data3: [
+        { title: "3第ㄧ則消息", time: "107-01-02" },
+        { title: "第二則消息", time: "107-01-02" },
+        { title: "第三則消息", time: "107-01-02" },
+        { title: "第四則消息", time: "107-01-02" },
+        { title: "第五則消息", time: "107-01-02" },
+      ],
+      data4: [
+        { title: "4第ㄧ則消息", time: "107-01-02" },
+        { title: "第二則消息", time: "107-01-02" },
+        { title: "第三則消息", time: "107-01-02" },
+        { title: "第四則消息", time: "107-01-02" },
+        { title: "第五則消息", time: "107-01-02" },
+      ],
+    });
+    let tabSet = null;
+    watch(arr, () => {
+      nextTick(() => {
+        tabSet();
+      });
+    });
     onMounted(() => {
+      // axios
+      //   .get("https://vue-lessons-api.herokuapp.com/photo/list")
+      //   .then(function(response) {
+      //     arr.data = response.data;
+      //     // console.log(arr.data);
+      //   });
       /*-----------------------------------*/
       ///////////////// 變數 ////////////////
       /*-----------------------------------*/
@@ -29,7 +71,7 @@ export default {
         });
       };
       resizeFn();
-      function tabSet() {
+      tabSet = () => {
         $(".tabs").each(function() {
           var _tab = $(this),
             _tabItem = _tab.find(".tabItem"),
@@ -49,9 +91,12 @@ export default {
             .show();
           if (ww >= wwSmall) {
             _tabContent.css("top", tabItemHeight);
+            _tabContent = _tab.find(".tabContent");
             _tab.height(tabContentHeight + tabItemHeight);
             tabItemWidth =
               (tabwidth - (tabItemLength - 1) * tiGap) / tabItemLength;
+            _tabItem.width(tabItemWidth).css("margin-left", tiGap);
+            _tabItem.first().css("margin-left", 0);
           } else {
             _tab.css("height", "auto");
             _tabItem
@@ -89,10 +134,13 @@ export default {
             e.preventDefault();
           }
         });
-      }
+      };
       $(".tabs>.tabItem:first-child>a").trigger("click");
       tabSet();
     });
+    return {
+      arr,
+    };
   },
 };
 </script>
@@ -103,47 +151,40 @@ export default {
       <!--選到的頁籤項目-->
       <div class="tabContent">
         <ul>
-          <li>
-            <a href="#">1第一則消息消息消息消息消息消息</a
-            ><time>107-01-01</time>
+          <li v-for="item in arr.data" :key="item.title">
+            <a href="#">{{ item.title }}</a
+            ><time>{{ item.time }}</time>
           </li>
-          <li><a href="#">第二則消息</a><time>107-01-01</time></li>
-          <li><a href="#">第三則消息</a><time>107-01-01</time></li>
-          <li><a href="#">第四則消息</a><time>107-01-01</time></li>
-          <li><a href="#">第五則消息</a><time>107-01-01</time></li>
         </ul>
         <div class="more"><a href="#">更多</a></div>
       </div>
       <h2 class="tabItem"><a href="#">第二個頁籤</a></h2>
       <div class="tabContent">
         <ul>
-          <li><a href="#">2第一則消息</a><time>107-01-01</time></li>
-          <li><a href="#">第二則消息</a><time>107-01-01</time></li>
-          <li><a href="#">第三則消息</a><time>107-01-01</time></li>
-          <li><a href="#">第四則消息</a><time>107-01-01</time></li>
-          <li><a href="#">第五則消息</a><time>107-01-01</time></li>
+          <li v-for="item in arr.data2" :key="item.title">
+            <a href="#">{{ item.title }}</a
+            ><time>{{ item.time }}</time>
+          </li>
         </ul>
         <div class="more"><a href="#">更多</a></div>
       </div>
       <h2 class="tabItem"><a href="#">第三個頁籤</a></h2>
       <div class="tabContent">
         <ul>
-          <li><a href="#">3第一則消息</a><time>107-01-01</time></li>
-          <li><a href="#">第二則消息</a><time>107-01-01</time></li>
-          <li><a href="#">第三則消息</a><time>107-01-01</time></li>
-          <li><a href="#">第四則消息</a><time>107-01-01</time></li>
-          <li><a href="#">第五則消息</a><time>107-01-01</time></li>
+          <li v-for="item in arr.data3" :key="item.title">
+            <a href="#">{{ item.title }}</a
+            ><time>{{ item.time }}</time>
+          </li>
         </ul>
         <div class="more"><a href="#">更多</a></div>
       </div>
       <h2 class="tabItem"><a href="#">第四個頁籤</a></h2>
       <div class="tabContent">
         <ul>
-          <li><a href="#">4第一則消息</a><time>107-01-01</time></li>
-          <li><a href="#">第二則消息</a><time>107-01-01</time></li>
-          <li><a href="#">第三則消息</a><time>107-01-01</time></li>
-          <li><a href="#">第四則消息</a><time>107-01-01</time></li>
-          <li><a href="#">第五則消息</a><time>107-01-01</time></li>
+          <li v-for="item in arr.data4" :key="item.title">
+            <a href="#">{{ item.title }}</a
+            ><time>{{ item.time }}</time>
+          </li>
         </ul>
         <div class="more"><a href="#">更多</a></div>
       </div>
