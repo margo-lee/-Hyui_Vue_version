@@ -4,6 +4,7 @@ import $ from "jquery";
 // import HyFooter from "@/components/HyFooter.vue";
 // import HyFatfooter from "@/components/HyFatfooter.vue";
 // import HyGoTopBtn from "@/components/HyGoTopBtn.vue";
+import HyNavigation from "@/components/HyNavigation.vue";
 import HyMarquee from "@/components/HyMarquee.vue";
 import HyModal from "@/components/HyModal.vue";
 import HyTabs from "@/components/HyTabs.vue";
@@ -12,10 +13,12 @@ import HyMeun from "@/components/HyMenu.vue";
 import HyLanguage from "@/components/HyLanguage.vue";
 import HyFontSize from "@/components/HyFontSize.vue";
 import HySearch from "@/components/HySearch.vue";
+import HyAccordion from "@/components/HyAccordion.vue";
 import { onMounted } from "@vue/runtime-core";
 
 export default {
   components: {
+    HyNavigation,
     HyMarquee,
     HyModal,
     HyTabs,
@@ -24,6 +27,7 @@ export default {
     HyLanguage,
     HyFontSize,
     HySearch,
+    HyAccordion,
   },
   setup() {
     onMounted(() => {});
@@ -33,12 +37,18 @@ export default {
 
 <template>
   <div class="wrapper">
-    <HyTabs />
-    <HyWeblink />
+    <!-- 模組 -->
+    <HyAccordion />
+    <HyNavigation />
+    <HySearch />
     <HyMeun />
     <HyLanguage />
+
+    <HyTabs />
+    <HyWeblink />
+
     <HyFontSize />
-    <HySearch />
+
     <!-- <HyMarquee /> -->
     <!-- <HyModal /> -->
   </div>

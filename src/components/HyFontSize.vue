@@ -73,9 +73,7 @@ export default {
       }
       window.onload = function(e) {
         var cookie = readCookie("FontSize");
-        //alert('cookie='+cookie);
         if (cookie == "small") {
-          //$('.font_size').find('.small').click();
           $(".font_size")
             .find(".small")
             .parent("li")
@@ -91,7 +89,6 @@ export default {
           e.preventDefault();
         } else {
           if (cookie == "large") {
-            //$('.font_size').find('.large').click();
             $(".font_size")
               .find(".large")
               .parent("li")
@@ -106,8 +103,6 @@ export default {
               .addClass("active");
             e.preventDefault();
           } else {
-            //這裡是預設宣告
-            //$('.font_size').find('.medium').click();
             $(".font_size")
               .find(".medium")
               .parent("li")

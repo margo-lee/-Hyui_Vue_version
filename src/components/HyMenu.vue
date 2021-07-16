@@ -1,5 +1,9 @@
 <script>
-export default {};
+export default {
+  setup() {
+    return {};
+  },
+};
 </script>
 <template>
   <!-- menu Start -->
