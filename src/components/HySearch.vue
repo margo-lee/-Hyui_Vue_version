@@ -1,52 +1,35 @@
 <script>
-export default {};
+import $ from "jquery";
+import { onMounted } from "@vue/runtime-core";
+export default {
+  setup() {
+    onMounted(() => {});
+  },
+};
 </script>
 <template>
-  <div class="share">
-    <ul>
-      <li>
-        <a href="#"
-          ><img src="@/assets/images/basic/icon_facebook.svg" alt="facebook"
-        /></a>
-      </li>
-      <li>
-        <a href="#"
-          ><img src="@/assets/images/basic/icon_twitter.svg" alt="twitter"
-        /></a>
-      </li>
-      <li>
-        <a href="#"
-          ><img src="@/assets/images/basic/icon_line.svg" alt="line"
-        /></a>
-      </li>
-      <li>
-        <a href="#"
-          ><img src="@/assets/images/basic/icon_youtube.svg" alt="youtube"
-        /></a>
-      </li>
-      <li>
-        <a href="#"
-          ><img
-            src="@/assets/images/basic/icon_googleplus.svg"
-            alt="google plus"
-        /></a>
-      </li>
-      <li>
-        <a href="#"
-          ><img src="@/assets/images/basic/icon_instagram.svg" alt="instagram"
-        /></a>
-      </li>
-      <li>
-        <a href="#"
-          ><img src="@/assets/images/basic/icon_linkedin.svg" alt="LinkedIn"
-        /></a>
-      </li>
-      <li>
-        <a href="#"
-          ><img src="@/assets/images/basic/icon_rss.svg" alt="RSS"
-        /></a>
-      </li>
-    </ul>
+  <!-- Search Start -->
+  <div class="search">
+    <div class="form_grp">
+      <label for="mustSameAsId">搜尋</label>
+      <input
+        name="username"
+        id="mustSameAsId"
+        type="text"
+        placeholaccesskey="S"
+      />
+      <input name="" type="submit" title="查詢" value="查詢" />
+    </div>
+    <div class="btn_grp">
+      <input name="" type="submit" value="進階搜尋" />
+    </div>
+    <div class="keywordHot">
+      <ul>
+        <li><a href="#">熱門熱門</a></li>
+        <li><a href="#">查詢</a></li>
+        <li><a href="#">字詞三</a></li>
+      </ul>
+    </div>
   </div>
 </template>
-<style></style>
+<style scoped></style>

@@ -14,6 +14,20 @@ import HyLanguage from "@/components/HyLanguage.vue";
 import HyFontSize from "@/components/HyFontSize.vue";
 import HySearch from "@/components/HySearch.vue";
 import HyAccordion from "@/components/HyAccordion.vue";
+import HyBreadcrumb from "@/components/HyBreadcrumb.vue";
+import HyCategory from "@/components/HyCategory.vue";
+import HyFileDownload from "@/components/HyFileDownload.vue";
+import HyFixedSidebar from "@/components/HyFixedSidebar.vue";
+import HyFatfooter from "@/components/HyFatfooter.vue";
+import HyFunctionPanel from "@/components/HyFunctionPanel.vue";
+import HyFunction from "@/components/HyFunction.vue";
+import HyShare from "@/components/HyShare.vue";
+import HyFooter from "@/components/HyFooter.vue";
+import HyNotice from "@/components/HyNotice.vue";
+import HyPaginations from "@/components/HyPaginations.vue";
+import HyThumbnail from "@/components/HyThumbnail.vue";
+import HyTag from "@/components/HyTag.vue";
+
 import { onMounted } from "@vue/runtime-core";
 
 export default {
@@ -28,6 +42,19 @@ export default {
     HyFontSize,
     HySearch,
     HyAccordion,
+    HyBreadcrumb,
+    HyCategory,
+    HyFileDownload,
+    HyFixedSidebar,
+    HyFatfooter,
+    HyFunctionPanel,
+    HyFunction,
+    HyShare,
+    HyFooter,
+    HyNotice,
+    HyPaginations,
+    HyThumbnail,
+    HyTag,
   },
   setup() {
     onMounted(() => {});
@@ -39,18 +66,35 @@ export default {
   <div class="wrapper">
     <!-- 模組 -->
     <HyAccordion />
+    <!-- <Album+Lightbox/> -->
+    <!-- 首頁 -->
     <HyNavigation />
     <HySearch />
     <HyMeun />
     <HyLanguage />
 
-    <HyTabs />
-    <HyWeblink />
+    <HyBreadcrumb />
+    <HyCategory />
+    <HyFileDownload />
+    <HyFixedSidebar />
+    <HyFatfooter />
 
+    <HyFunctionPanel />
     <HyFontSize />
+    <HyFunction />
+    <HyShare />
 
-    <!-- <HyMarquee /> -->
-    <!-- <HyModal /> -->
+    <HyFooter />
+    <HyModal />
+    <HyMarquee />
+    <HyNotice />
+    <HyPaginations />
+    <!-- <Silder/> -->
+    <HyTabs />
+    <HyTag />
+    <HyThumbnail />
+
+    <HyWeblink />
   </div>
 </template>
 
