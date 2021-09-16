@@ -73,6 +73,8 @@ export default {
   ul {
     transition: all 0.5s;
     max-height: 140px;
+    overflow: hidden;
+    display: block;
   }
   .close {
     max-height: 0;

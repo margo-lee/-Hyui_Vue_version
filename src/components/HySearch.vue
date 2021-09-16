@@ -9,19 +9,22 @@ export default {
 </script>
 <template>
   <!-- Search Start -->
-  <div class="search">
+  <div class="search" role="search">
     <div class="form_grp">
       <label for="mustSameAsId">搜尋</label>
       <input
         name="username"
         id="mustSameAsId"
         type="text"
-        placeholaccesskey="S"
+        placeholder="請輸入文字"
+        accesskey="S"
+        title="請輸入文字"
+        aria-label="搜尋網站內容"
       />
-      <input name="" type="submit" title="查詢" value="查詢" />
+      <!-- <input name="" type="submit" value="查詢" class="btn btn-search" /> -->
     </div>
     <div class="btn_grp">
-      <input name="" type="submit" value="進階搜尋" />
+      <input name="" type="submit" value="進階搜尋" class="btn" />
     </div>
     <div class="keywordHot">
       <ul>

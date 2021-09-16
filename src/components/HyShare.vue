@@ -1,130 +1,207 @@
 <script>
+import $ from "jquery";
+import { onMounted } from "@vue/runtime-core";
 export default {
-
-}
+  setup() {
+    onMounted(() => {
+      /*------------------------------------*/
+      //////////分享按鈕 share dropdwon////////
+      /*------------------------------------*/
+      $(".function_panel .share")
+        .children("ul")
+        .hide();
+      $(".function_panel .share").prepend(
+        '<a href="#" class="shareButton">share分享按鈕</a>'
+      );
+      var _shareButton = $(".shareButton");
+      _shareButton.off().click(function(e) {
+        $(this)
+          .siblings("ul")
+          .stop(true, true)
+          .slideToggle();
+        e.preventDefault();
+      });
+      _shareButton.keyup(function(event) {
+        $(this)
+          .siblings("ul")
+          .stop(true, true)
+          .slideDown();
+      });
+      $(".function_panel .share")
+        .find("li:last>a")
+        .focusout(function(event) {
+          $(this)
+            .parent()
+            .parent("ul")
+            .hide();
+        });
+      // 點外面關閉share
+      $(document).on("touchend click", function(e) {
+        var container = $(".function_panel .share");
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+          $(".function_panel .share ul").hide();
+        }
+      });
+    });
+  },
+};
 </script>
 <template>
-    <div class="share">
-        <ul>
-            <li><a href="#"><img src="~@/assets/images/basic/icon_facebook.svg" alt="facebook"></a></li>
-            <li><a href="#"><img src="~@/assets/images/basic/icon_twitter.svg" alt="twitter"></a></li>
-            <li><a href="#"><img src="~@/assets/images/basic/icon_line.svg" alt="line"></a></li>
-            <li><a href="#"><img src="~@/assets/images/basic/icon_youtube.svg" alt="youtube"></a></li>
-            <li><a href="#"><img src="~@/assets/images/basic/icon_googleplus.svg" alt="google plus"></a></li>
-            <li><a href="#"><img src="~@/assets/images/basic/icon_instagram.svg" alt="instagram"></a></li>
-            <li><a href="#"><img src="~@/assets/images/basic/icon_linkedin.svg" alt="LinkedIn"></a></li>
-            <li><a href="#"><img src="~@/assets/images/basic/icon_rss.svg" alt="RSS"></a></li>
-        </ul>
-    </div>
+  <div class="share">
+    <ul>
+      <li>
+        <a href="#"
+          ><img src="~@/assets/images/basic/icon_facebook.svg" alt="facebook"
+        /></a>
+      </li>
+      <li>
+        <a href="#"
+          ><img src="~@/assets/images/basic/icon_twitter.svg" alt="twitter"
+        /></a>
+      </li>
+      <li>
+        <a href="#"
+          ><img src="~@/assets/images/basic/icon_line.svg" alt="line"
+        /></a>
+      </li>
+      <li>
+        <a href="#"
+          ><img src="~@/assets/images/basic/icon_youtube.svg" alt="youtube"
+        /></a>
+      </li>
+      <li>
+        <a href="#"
+          ><img
+            src="~@/assets/images/basic/icon_googleplus.svg"
+            alt="google plus"
+        /></a>
+      </li>
+      <li>
+        <a href="#"
+          ><img src="~@/assets/images/basic/icon_instagram.svg" alt="instagram"
+        /></a>
+      </li>
+      <li>
+        <a href="#"
+          ><img src="~@/assets/images/basic/icon_linkedin.svg" alt="LinkedIn"
+        /></a>
+      </li>
+      <li>
+        <a href="#"
+          ><img src="~@/assets/images/basic/icon_rss.svg" alt="RSS"
+        /></a>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style lang="scss">
-    // 基本樣式
-.share {
-    @include box-sizing();
-    margin: .5em 0;
-    ul {
-        @include li-reset;
-        li {
-            width: 30px;
-            height: 30px;
-            display: inline-block;
-            text-align: left;
-            margin: 0px 3px 3px;
-            a{
-                display:block;
-                height: 30px;
-            }
-            @include screen('tablet') {
-                margin: 0px 1px 2px;
-                width: 30px;
-                height: 30px;
-            }
-            img {
-                width: 100%;
-                height: 100%;
-            }
-        }
-    }
-}
+// 基本樣式
+// .share {
+//     @include box-sizing();
+//     margin: .5em 0;
+//     ul {
+//         @include li-reset;
+//         li {
+//             width: 30px;
+//             height: 30px;
+//             display: inline-block;
+//             text-align: left;
+//             margin: 0px 3px 3px;
+//             a{
+//                 display:block;
+//                 height: 30px;
+//             }
+//             @include screen('tablet') {
+//                 margin: 0px 1px 2px;
+//                 width: 30px;
+//                 height: 30px;
+//             }
+//             img {
+//                 width: 100%;
+//                 height: 100%;
+//             }
+//         }
+//     }
+// }
 // 放進function_panel樣式
-.function_panel {
-    .share {
-        @include box-sizing();
-        text-align: center;
-        height: 40px;
-        margin: 0;
-        position:relative;
-        ul {
-            display: none;
-            position: absolute;
-            top: 3em;
-            left: -8px;
-            width: 40px;
-            padding: 10px;
-            background: #FFF;
-            box-shadow: 2px 2px 5px RGBA(0, 0, 0, .2);
-            border-radius: 8px;
-            z-index: 999;
-            height: auto;
-            li {
-                display: block;
-                margin: 0 auto.5em;
-                img {
-                    width: 100%;
-                    height: 100%;
-                    margin: 0 auto;
-                }
-                a {
-                    background: transparent;
-                    display: block;
-                    padding: 0;
-                    width: 30px;
-                    height: 30px;
-                    &:hover, &:focus {
-                        background: transparent;
-                        img {
-                            filter: invert(0%);
-                        }
-                    }
-                    &:focus {
-                        outline: 1px solid $primaryColor;
-                    }
-                }
-            }
-        }
-        a.shareButton{
-            display: block;
-            background: #F1F1F1;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            text-align: center;
-            &:hover, &:focus {
-                background: $aHover;
-                img {
-                    filter: invert(100%);
-                }
-            }
-            img {
-                width: 60%;
-                height: 60%;
-                margin: 20% auto;
-            }
-        }
-        // img {
-        //     width: 100%;
-        //     height: 100%;
-        // }
-        // ul {
-        //     @include li-reset;
-        //     li {
-        //         width: 40px;
-        //         height: 40px;
-        //         display: inline-block;
-        //         position: relative;
-        //     }
-        // }
-    }
-}
+// .function_panel {
+//     .share {
+//         @include box-sizing();
+//         text-align: center;
+//         height: 40px;
+//         margin: 0;
+//         position:relative;
+//         ul {
+//             display: none;
+//             position: absolute;
+//             top: 3em;
+//             left: -8px;
+//             width: 40px;
+//             padding: 10px;
+//             background: #FFF;
+//             box-shadow: 2px 2px 5px RGBA(0, 0, 0, .2);
+//             border-radius: 8px;
+//             z-index: 999;
+//             height: auto;
+//             li {
+//                 display: block;
+//                 margin: 0 auto.5em;
+//                 img {
+//                     width: 100%;
+//                     height: 100%;
+//                     margin: 0 auto;
+//                 }
+//                 a {
+//                     background: transparent;
+//                     display: block;
+//                     padding: 0;
+//                     width: 30px;
+//                     height: 30px;
+//                     &:hover, &:focus {
+//                         background: transparent;
+//                         img {
+//                             filter: invert(0%);
+//                         }
+//                     }
+//                     &:focus {
+//                         outline: 1px solid $primaryColor;
+//                     }
+//                 }
+//             }
+//         }
+//         a.shareButton{
+//             display: block;
+//             background: #F1F1F1;
+//             border-radius: 50%;
+//             width: 40px;
+//             height: 40px;
+//             text-align: center;
+//             &:hover, &:focus {
+//                 background: $aHover;
+//                 img {
+//                     filter: invert(100%);
+//                 }
+//             }
+//             img {
+//                 width: 60%;
+//                 height: 60%;
+//                 margin: 20% auto;
+//             }
+//         }
+//         // img {
+//         //     width: 100%;
+//         //     height: 100%;
+//         // }
+//         // ul {
+//         //     @include li-reset;
+//         //     li {
+//         //         width: 40px;
+//         //         height: 40px;
+//         //         display: inline-block;
+//         //         position: relative;
+//         //     }
+//         // }
+//     }
+// }
 </style>

@@ -1,16 +1,133 @@
 <script>
+import $ from "jquery";
+import { props, watch, ref, onMounted } from "@vue/runtime-core";
 export default {
   setup() {
-    return {};
+    // watch(() => {});
+    onMounted(() => {
+      var stickyMenuTop = Math.floor($("header .menu").offset().top);
+      var customHeight = 176 - 40;
+      var _window = $(window);
+      var ww = _window.outerWidth();
+      var wwSmall = 768;
+      var _menu = $(".menu");
+      // 固定版頭
+      var menuFixed = () => {
+        $(window).bind("load scroll resize", function(e) {
+          ww = _window.outerWidth();
+          if (ww >= wwSmall && $(this).scrollTop() > stickyMenuTop) {
+            $(".header").addClass("fixed");
+            $(".header").css("margin-top", -1 * customHeight);
+          } else {
+            $(".header").removeClass("fixed");
+            $(".header").css("margin-top", 0);
+            $(".main").css("margin-top", 0);
+          }
+        });
+      };
+      menuFixed();
+    });
+    const test = (e) => {
+      // console.log(document.body.clientWidth);
+
+      const clien_Width = document.body.clientWidth;
+
+      if (clien_Width < 768) {
+        console.log("OK");
+        let argetActive = document.querySelectorAll(".hasChild ul");
+        argetActive.forEach((item) => {
+          // console.log(item.style.display);
+          console.log(item.style.display.contains === "contests");
+          // if (item.style.display !== "contents") {
+          //   return;
+          // } else {
+          //   item.style.display = "";
+          // }
+        });
+        let targetItem = e.target.nextElementSibling;
+        console.log(targetItem);
+        // targetItem.style.display = "contents";
+        if (targetItem.style.display === "") {
+          console.log("a");
+          targetItem.style.display = "contents";
+        } else {
+          targetItem.style.display = "";
+        }
+        //console.log((e.target.nextElementSibling.style.display = "contents"));
+      }
+    };
+    return {
+      test,
+    };
   },
+
+  // setup() {
+  //   let fixed = null;
+  //   const menuStatus = ref(false);
+  //   watch(menuStatus, () => {
+  //     nextTick(() => {
+  //       fixed();
+  //     });
+  //   });
+  //   onMounted(() => {
+  //     // 固定版頭
+  //     $(function() {
+  //       var headerHeight = Math.floor($(".header").outerHeight(true)),
+  //         customHeight = 176 - 40; // header高度 - menu高度，每個專案不同，請另外填寫。
+  //       var _menu = $(".menu");
+  //       var _window = $(window);
+  //       var ww = _window.outerWidth();
+  //       var wwSmall = 768;
+  //       fixed = function() {
+
+  //         ww = _window.outerWidth();
+  //         menuStatus.value = true;
+
+  //         if (ww >= wwSmall && $(this).scrollTop() > stickyMenuTop) {
+  //           $(".header").addClass("fixed");
+  //           $(".header").css("margin-top", -1 * customHeight);
+  //           // $('.main').css('margin-top', headerHeight);
+  //           // $('.main').css('margin-top', 0);
+  //         } else {
+  //           $(".header").removeClass("fixed");
+  //           $(".header").css("margin-top", 0);
+  //           $(".main").css("margin-top", 0);
+  //         }
+  //       };
+  //       if ($(".menu").length > 0) {
+
+  //         var stickyMenuTop = Math.floor($(".menu").offset().top);
+  //         headerHeight = Math.floor($(".header").outerHeight(true));
+  //         var menuH = Math.floor(_menu.outerHeight(true));
+  //         $(window).bind("load scroll resize", fixed());
+  //         // $(window).bind("load scroll resize", function(e) {
+  //         //   console.log("ssss");
+  //         //   ww = _window.outerWidth();
+  //         //   if (ww >= wwSmall && $(this).scrollTop() > stickyMenuTop) {
+  //         //     $(".header").addClass("fixed");
+  //         //     $(".header").css("margin-top", -1 * customHeight);
+  //         //     // $('.main').css('margin-top', headerHeight);
+  //         //     // $('.main').css('margin-top', 0);
+  //         //   } else {
+  //         //     $(".header").removeClass("fixed");
+  //         //     $(".header").css("margin-top", 0);
+  //         //     $(".main").css("margin-top", 0);
+  //         //   }
+  //         // });
+  //       }
+  //     });
+  //   });
+  //   return { menuStatus };
+  // },
 };
 </script>
 <template>
   <!-- menu Start -->
-  <nav class="menu">
+  <nav class="menu" role="navigation" aria-label="About page">
     <ul>
-      <li>
-        <a href="#">第一層選單</a>
+      <li class="hasChild" @click="test">
+        <!-- <a href="#">第一層選單</a> -->
+        <router-link to="/np_template">第一層選單</router-link>
         <ul>
           <li><a href="#">第二層選單</a></li>
           <li><a href="#">第二層選單</a></li>
@@ -18,9 +135,11 @@ export default {
           <li><a href="#">第二層選單</a></li>
         </ul>
       </li>
-      <li><a href="http://www.google.com">第一層有連結</a></li>
-      <li>
-        <a href="http://www.google.com">第一層有連結</a>
+      <li><router-link to="/lp_template">第一層選單</router-link></li>
+      <!-- <li><a href="http://www.google.com">第一層有連結</a></li> -->
+      <li class="hasChild">
+        <router-link to="/lp_table_template">第一層選單</router-link>
+        <!-- <a href="http://www.google.com">第一層有連結</a> -->
         <ul>
           <li><a href="http://www.google.com">第二層有連結</a></li>
           <li><a href="#">第二層選單</a></li>
@@ -32,13 +151,14 @@ export default {
           <li><a href="#">第二層選單</a></li>
         </ul>
       </li>
-      <li>
-        <a href="#">第一層選單</a>
+      <li class="hasChild" @click.stop="test">
+        <router-link to="/Qp_template">第一層選單</router-link>
         <ul>
           <li><a href="#">第二層選單</a></li>
           <li><a href="#">第二層選單</a></li>
-          <li>
-            <a href="http://www.google.com">第二層有連結</a>
+          <li @click.stop="test">
+            <a href="#">第二層有連結</a>
+            <!-- <a href="http://www.google.com">第二層有連結</a> -->
             <ul>
               <li>
                 <a href="http://www.google.com">第三層選單有下層</a>
@@ -47,15 +167,18 @@ export default {
                   <li><a href="#">第四層選單</a></li>
                 </ul>
               </li>
-              <li><a href="http://www.google.com">第三層選單有連結</a></li>
+              <li>
+                <a href="http://www.google.com">第三層選單有連結</a>
+              </li>
               <li><a href="#">第三層選單</a></li>
             </ul>
           </li>
           <li><a href="#">第二層選單</a></li>
         </ul>
       </li>
-      <li>
-        <a href="#">第一層選單</a>
+      <li class="hasChild">
+        <router-link to="/lp_album_template">第一層選單</router-link>
+        <!-- <a href="#">第一層選單</a> -->
         <ul>
           <li><a href="#">第二層選單</a></li>
           <li><a href="#">第二層選單</a></li>
@@ -76,4 +199,10 @@ export default {
   </nav>
   <!-- menu End -->
 </template>
-<style></style>
+<style>
+.menu {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+</style>

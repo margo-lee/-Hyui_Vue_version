@@ -134,66 +134,66 @@ export default {
   </div>
 </template>
 <style lang="scss">
-.cp {
-  &.small_size {
-    font-size: 0.938em;
-  }
-  &.large_size {
-    font-size: 1.125em;
-  }
-}
-.font_size {
-  overflow: hidden;
-  display: inline-block;
-  text-align: center;
-  span {
-    display: inline-block;
-    vertical-align: middle;
-    font-size: 0.938em;
-    color: #666;
-  }
-  ul {
-    display: inline-block;
-    vertical-align: middle;
-    @include li-reset;
-    li {
-      width: 40px;
-      height: 40px;
-      font-size: 1em;
-      float: left;
-      display: block;
-      margin: 0 0.2em;
-      a {
-        display: block;
-        text-align: center;
-        line-height: 40px;
-        border-radius: 50%;
-        background: #f1f1f1;
-        color: #333;
-        &:hover,
-        &:focus {
-          background: $aHover;
-          color: #fff;
-        }
-        &.active {
-          background: #f1f1f1;
-          &:hover,
-          &:focus {
-            background: $aHover;
-            color: #fff;
-          }
-        }
-        &.small {
-          font-size: 0.938em;
-        }
-        &.large {
-          font-size: 1.125em;
-        }
-      }
-    }
-  }
-  @include screen("mobile") {
-    display: none;
-  }
-}
+// .cp {
+//   &.small_size {
+//     font-size: 0.938em;
+//   }
+//   &.large_size {
+//     font-size: 1.125em;
+//   }
+// }
+// .font_size {
+//   overflow: hidden;
+//   display: inline-block;
+//   text-align: center;
+//   span {
+//     display: inline-block;
+//     vertical-align: middle;
+//     font-size: 0.938em;
+//     color: #666;
+//   }
+//   ul {
+//     display: inline-block;
+//     vertical-align: middle;
+//     @include li-reset;
+//     li {
+//       width: 40px;
+//       height: 40px;
+//       font-size: 1em;
+//       float: left;
+//       display: block;
+//       margin: 0 0.2em;
+//       a {
+//         display: block;
+//         text-align: center;
+//         line-height: 40px;
+//         border-radius: 50%;
+//         background: #f1f1f1;
+//         color: #333;
+//         &:hover,
+//         &:focus {
+//           background: $aHover;
+//           color: #fff;
+//         }
+//         &.active {
+//           background: #f1f1f1;
+//           &:hover,
+//           &:focus {
+//             background: $aHover;
+//             color: #fff;
+//           }
+//         }
+//         &.small {
+//           font-size: 0.938em;
+//         }
+//         &.large {
+//           font-size: 1.125em;
+//         }
+//       }
+//     }
+//   }
+//   @include screen("mobile") {
+//     display: none;
+//   }
+// }
 </style>

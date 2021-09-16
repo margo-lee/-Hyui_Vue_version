@@ -1,269 +1,498 @@
 <script>
 import $ from "jquery";
-import { onMounted } from "@vue/runtime-core";
+import { onMounted, ref, nextTick, watch } from "@vue/runtime-core";
 import HyLanguage from "@/components/HyLanguage.vue";
+import HyFontSize from "@/components/HyFontSize.vue";
+import HySearch from "@/components/HySearch.vue";
+import HyNavigation from "@/components/HyNavigation.vue";
+import HyMenu from "@/components/HyMenu.vue";
+import { test } from "@/components/HyMenu.vue";
 export default {
   components: {
     HyLanguage,
+    HyFontSize,
+    HySearch,
+    HyNavigation,
+    HyMenu,
   },
   setup() {
-    onMounted(() => {
-      $(function() {
-        /*-----------------------------------*/
-        /////////// 無障礙快捷鍵盤組合  //////////
-        /*-----------------------------------*/
-        $(document).on("keydown", function(e) {
-          // alt+S 查詢
-          if (e.altKey && e.keyCode == 83) {
-            $("html, body").animate({ scrollTop: 0 }, 200, "easeOutExpo");
-            $(".search")
-              .find('input[type="text"]')
-              .focus();
-          }
-          // alt+U header
-          if (e.altKey && e.keyCode == 85) {
-            $("html, body").animate({ scrollTop: 0 }, 200, "easeOutExpo");
-            $("header")
-              .find(".accesskey")
-              .focus();
-          }
-          // alt+C 主要內容區
-          if (e.altKey && e.keyCode == 67) {
-            $("html, body")
-              .stop(true, true)
-              .animate(
-                {
-                  scrollTop:
-                    $(".main")
-                      .find(".accesskey")
-                      .offset().top - 70,
-                },
-                800,
-                "easeOutExpo"
-              );
-            $(".main")
-              .find(".accesskey")
-              .focus();
-          }
-          // alt+B footer
-          if (e.altKey && e.keyCode == 90) {
-            $("html, body")
-              .stop(true, true)
-              .animate(
-                {
-                  scrollTop: $("footer")
-                    .find(".accesskey")
-                    .offset().top,
-                },
-                800,
-                "easeOutExpo"
-              );
-            $("footer")
-              .find(".accesskey")
-              .focus();
-          }
-        });
-        // //無障礙切換slick箭頭語系
-        // if ($("html")[0].hasAttribute("labg")) {
-        //   var weblang = $("html").attr("lang");
-        //   if (weblang.substring(0, 2) == "zh") {
-        //     $(".slick-prev").attr("title", "上一筆");
-        //     $(".slick-next").attr("title", "下一筆");
-        //   } else if (weblang.substring(0, 2) !== "zh") {
-        //     $(".slick-prev").attr("title", "previous");
-        //     $(".slick-next").attr("title", "next");
-        //   }
-        // }
-        // 無障礙錨點切換語系，更改accesskey的title名稱
-        var weblang = $("html").attr("lang");
-        if (weblang.substring(0, 2) == "zh") {
-          $("header")
-            .find(".accesskey")
-            .attr("title", "上方功能區塊");
-          $(".main")
-            .find(".accesskey")
-            .attr("title", "中央內容區塊");
-          $("footer")
-            .find(".accesskey")
-            .attr("title", "下方功能區塊");
-          $(".search")
-            .find(".accesskey")
-            .attr("title", "關鍵字搜尋：文章關鍵字搜尋");
-        } else if (weblang.substring(0, 2) !== "zh") {
-          $("header")
-            .find(".accesskey")
-            .attr("title", "header");
-          $(".main")
-            .find(".accesskey")
-            .attr("title", "content");
-          $("footer")
-            .find(".accesskey")
-            .attr("title", "footer");
-          $(".search")
-            .find(".accesskey")
-            .attr("title", "search");
-        }
-        /*-----------------------------------*/
-        //////// 語言模組 無障礙遊走設定  ////////
-        /*-----------------------------------*/
-        // $(".language")
-        //   .find("ul")
-        //   .hide();
-        // var openLang = $(".language").children("a");
-        // openLang.off().click(function(e) {
-        //   $(this)
-        //     .next("ul")
-        //     .stop(true, true)
-        //     .slideToggle();
-        //   e.preventDefault();
-        // });
-        // openLang.keyup(function() {
-        //   $(this)
-        //     .next("ul")
-        //     .stop(true, true)
-        //     .slideDown();
-        // });
-        // $(".language")
-        //   .find("ul li:last>a")
-        //   .focusout(function() {
-        //     $(".language")
-        //       .find("ul")
-        //       .hide();
-        //   });
-        // $(document).on("touchend click", function(e) {
-        //   var target = e.target;
-        //   if (!$(target).is(".language a")) {
-        //     $(".language")
-        //       .find("ul")
-        //       .hide();
-        //   }
-        // });
-        /*------------------------------------*/
-        /////////////字型大小 font-size//////////
-        /*------------------------------------*/
-        $(".font_size")
-          .find(".small")
-          .click(function(e) {
-            $(this)
-              .parent("li")
-              .siblings("li")
-              .find("a")
-              .removeClass("active");
-            $(".innerpage")
-              .removeClass("large_size")
-              .addClass("small_size");
-            $(this).addClass("active");
-            e.preventDefault();
-            createCookie("FontSize", "small", 356);
-          });
-        $(".font_size")
-          .find(".medium")
-          .click(function(e) {
-            $(this)
-              .parent("li")
-              .siblings("li")
-              .find("a")
-              .removeClass("active");
-            $(".innerpage").removeClass("large_size small_size");
-            $(this).addClass("active");
-            e.preventDefault();
-            createCookie("FontSize", "medium", 356);
-          });
-        $(".font_size")
-          .find(".large")
-          .click(function(e) {
-            $(this)
-              .parent("li")
-              .siblings("li")
-              .find("a")
-              .removeClass("active");
-            $(".innerpage")
-              .removeClass("small_size")
-              .addClass("large_size");
-            $(this).addClass("active");
-            e.preventDefault();
-            createCookie("FontSize", "large", 356);
-          });
+    const menuBtn = ref(false);
+    const m_search = ref(false);
+    const m_menu = ref(false);
+    const sidebarMenuOpen = ref(false);
+    let menuItemOpen = null;
+    const menuPhoneBtnFn = () => {
+      let clientWidth = document.documentElement.clientWidth;
+      if (clientWidth < 768) {
+        menuBtn.value = true;
+        m_menu.value = true;
+      } else {
+        menuBtn.value = false;
+        m_menu.value = false;
+      }
+    };
 
-        function createCookie(name, value, days) {
-          if (days) {
-            var date = new Date();
-            date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-            var expires = "; expires=" + date.toGMTString();
-          } else expires = "";
-          document.cookie = name + "=" + value + expires + "; path=/";
-        }
-
-        function readCookie(name) {
-          var nameEQ = name + "=";
-          var ca = document.cookie.split(";");
-          for (var i = 0; i < ca.length; i++) {
-            var c = ca[i];
-            while (c.charAt(0) == " ") c = c.substring(1, c.length);
-            if (c.indexOf(nameEQ) == 0)
-              return c.substring(nameEQ.length, c.length);
-          }
-          return null;
-        }
-        window.onload = function(e) {
-          var cookie = readCookie("FontSize");
-          //alert('cookie='+cookie);
-          if (cookie == "small") {
-            //$('.font_size').find('.small').click();
-            $(".font_size")
-              .find(".small")
-              .parent("li")
-              .siblings("li")
-              .find("a")
-              .removeClass("active");
-            $(".innerpage")
-              .removeClass("large_size medium_size")
-              .addClass("small_size");
-            $(".font_size")
-              .find(".small")
-              .addClass("active");
-            e.preventDefault();
-          } else {
-            if (cookie == "large") {
-              //$('.font_size').find('.large').click();
-              $(".font_size")
-                .find(".large")
-                .parent("li")
-                .siblings("li")
-                .find("a")
-                .removeClass("active");
-              $(".innerpage")
-                .removeClass("small_size medium_size")
-                .addClass("large_size");
-              $(".font_size")
-                .find(".large")
-                .addClass("active");
-              e.preventDefault();
-            } else {
-              //這裡是預設宣告
-              //$('.font_size').find('.medium').click();
-              $(".font_size")
-                .find(".medium")
-                .parent("li")
-                .siblings("li")
-                .find("a")
-                .removeClass("active");
-              $(".innerpage").removeClass("large_size small_size");
-              $(".font_size")
-                .find(".medium")
-                .addClass("active");
-              e.preventDefault();
-            }
-          }
-        };
+    const handleSearch = () => {
+      m_search.value = !m_search.value;
+    };
+    const handleMeun = () => {
+      sidebarMenuOpen.value = !sidebarMenuOpen.value;
+    };
+    watch(sidebarMenuOpen, () => {
+      nextTick(() => {
+        console.log("222");
+        // menuItemOpen();
       });
     });
+    onMounted(() => {
+      menuPhoneBtnFn();
+      window.addEventListener("resize", menuPhoneBtnFn);
+      var stickyMenuTop = Math.floor($("header .menu").offset().top);
+      var customHeight = 176 - 40;
+      var _window = $(window);
+      var ww = _window.outerWidth();
+      var wwSmall = 768;
+      var _menu = $(".menu");
+      var liHasChild = _menu.find("li.hasChild");
+      var liHasChild_level1 = $(".menu ul").children("li.hasChild");
+      var liHasChild_level2 = $(".menu ul ul").children("li.hasChild");
+      var liHasChild_level3 = $(".menu ul ul ul").children("li.hasChild");
+      var subMenuWidth = liHasChild
+        .first()
+        .children("ul")
+        .outerWidth();
+
+      menuItemOpen = () => {
+        liHasChild_level1.on({
+          mouseenter: function() {
+            console.log("332");
+            $(this)
+              .children("ul")
+              .stop(true, true)
+              .slideDown("600");
+          },
+          mouseleave: function() {
+            $(this)
+              .parent()
+              .siblings("ul")
+              .hide();
+            $(this)
+              .children("ul")
+              .stop(true, true)
+              .slideUp("600");
+          },
+        });
+        // 副選單點出
+        liHasChild.off().on("mouseenter,mouseleave");
+        liHasChild.on("touchstart", function() {
+          $(this).off("mouseenter,mouseleave");
+        });
+        // 第一層選單
+        liHasChild_level1.off().on("click", function(e) {
+          $(this)
+            .siblings("li")
+            .find("ul")
+            .stop(true, true)
+            .slideUp("600");
+          $(this)
+            .children("ul")
+            .stop(true, true)
+            .slideDown("600");
+        });
+        // 第二層選單
+        liHasChild_level2.off().on("click", function(e) {
+          $(this)
+            .siblings("li")
+            .children("ul")
+            .stop(true, true)
+            .slideUp("600");
+          $(this)
+            .children("ul")
+            .stop(true, true)
+            .slideDown("600");
+        });
+        // 第三層選單
+        liHasChild_level3.off().on("click", function(e) {
+          e.preventDefault();
+        });
+      };
+      menuItemOpen();
+    });
+    return {
+      menuBtn,
+      m_search,
+      handleSearch,
+      handleMeun,
+      m_menu,
+      sidebarMenuOpen,
+    };
   },
+  // setup() {
+  //   onMounted(() => {
+  //     $(function() {
+  //       $(document).on("keydown", function(e) {
+  //         // alt+S 查詢
+  //         if (e.altKey && e.keyCode == 83) {
+  //           $("html, body").animate({ scrollTop: 0 }, 200, "easeOutExpo");
+  //           $(".search")
+  //             .find('input[type="text"]')
+  //             .focus();
+  //         }
+  //         // alt+U header
+  //         if (e.altKey && e.keyCode == 85) {
+  //           $("html, body").animate({ scrollTop: 0 }, 200, "easeOutExpo");
+  //           $("header")
+  //             .find(".accesskey")
+  //             .focus();
+  //         }
+  //         // alt+C 主要內容區
+  //         if (e.altKey && e.keyCode == 67) {
+  //           $("html, body")
+  //             .stop(true, true)
+  //             .animate(
+  //               {
+  //                 scrollTop:
+  //                   $(".main")
+  //                     .find(".accesskey")
+  //                     .offset().top - 70,
+  //               },
+  //               800,
+  //               "easeOutExpo"
+  //             );
+  //           $(".main")
+  //             .find(".accesskey")
+  //             .focus();
+  //         }
+  //         // alt+B footer
+  //         if (e.altKey && e.keyCode == 90) {
+  //           $("html, body")
+  //             .stop(true, true)
+  //             .animate(
+  //               {
+  //                 scrollTop: $("footer")
+  //                   .find(".accesskey")
+  //                   .offset().top,
+  //               },
+  //               800,
+  //               "easeOutExpo"
+  //             );
+  //           $("footer")
+  //             .find(".accesskey")
+  //             .focus();
+  //         }
+  //       });
+  //       $(".language")
+  //         .find("ul")
+  //         .hide();
+  //       var openLang = $(".language").children("a");
+  //       openLang.off().click(function(e) {
+  //         $(this)
+  //           .next("ul")
+  //           .stop(true, true)
+  //           .slideToggle();
+  //         e.preventDefault();
+  //       });
+  //       openLang.keyup(function() {
+  //         $(this)
+  //           .next("ul")
+  //           .stop(true, true)
+  //           .slideDown();
+  //       });
+  //       $(".language")
+  //         .find("ul li:last>a")
+  //         .focusout(function() {
+  //           $(".language")
+  //             .find("ul")
+  //             .hide();
+  //         });
+  //       $(document).on("touchend click", function(e) {
+  //         var target = e.target;
+  //         if (!$(target).is(".language a")) {
+  //           $(".language")
+  //             .find("ul")
+  //             .hide();
+  //         }
+  //       });
+  //     });
+  //   });
+  // },
+  // setup() {
+  //   onMounted(() => {
+  //     $(function() {
+  //       /*-----------------------------------*/
+  //       /////////// 無障礙快捷鍵盤組合  //////////
+  //       /*-----------------------------------*/
+  //       $(document).on("keydown", function(e) {
+  //         // alt+S 查詢
+  //         if (e.altKey && e.keyCode == 83) {
+  //           $("html, body").animate({ scrollTop: 0 }, 200, "easeOutExpo");
+  //           $(".search")
+  //             .find('input[type="text"]')
+  //             .focus();
+  //         }
+  //         // alt+U header
+  //         if (e.altKey && e.keyCode == 85) {
+  //           $("html, body").animate({ scrollTop: 0 }, 200, "easeOutExpo");
+  //           $("header")
+  //             .find(".accesskey")
+  //             .focus();
+  //         }
+  //         // alt+C 主要內容區
+  //         if (e.altKey && e.keyCode == 67) {
+  //           $("html, body")
+  //             .stop(true, true)
+  //             .animate(
+  //               {
+  //                 scrollTop:
+  //                   $(".main")
+  //                     .find(".accesskey")
+  //                     .offset().top - 70,
+  //               },
+  //               800,
+  //               "easeOutExpo"
+  //             );
+  //           $(".main")
+  //             .find(".accesskey")
+  //             .focus();
+  //         }
+  //         // alt+B footer
+  //         if (e.altKey && e.keyCode == 90) {
+  //           $("html, body")
+  //             .stop(true, true)
+  //             .animate(
+  //               {
+  //                 scrollTop: $("footer")
+  //                   .find(".accesskey")
+  //                   .offset().top,
+  //               },
+  //               800,
+  //               "easeOutExpo"
+  //             );
+  //           $("footer")
+  //             .find(".accesskey")
+  //             .focus();
+  //         }
+  //       });
+  //       // //無障礙切換slick箭頭語系
+  //       // if ($("html")[0].hasAttribute("labg")) {
+  //       //   var weblang = $("html").attr("lang");
+  //       //   if (weblang.substring(0, 2) == "zh") {
+  //       //     $(".slick-prev").attr("title", "上一筆");
+  //       //     $(".slick-next").attr("title", "下一筆");
+  //       //   } else if (weblang.substring(0, 2) !== "zh") {
+  //       //     $(".slick-prev").attr("title", "previous");
+  //       //     $(".slick-next").attr("title", "next");
+  //       //   }
+  //       // }
+  //       // 無障礙錨點切換語系，更改accesskey的title名稱
+  //       var weblang = $("html").attr("lang");
+  //       if (weblang.substring(0, 2) == "zh") {
+  //         $("header")
+  //           .find(".accesskey")
+  //           .attr("title", "上方功能區塊");
+  //         $(".main")
+  //           .find(".accesskey")
+  //           .attr("title", "中央內容區塊");
+  //         $("footer")
+  //           .find(".accesskey")
+  //           .attr("title", "下方功能區塊");
+  //         $(".search")
+  //           .find(".accesskey")
+  //           .attr("title", "關鍵字搜尋：文章關鍵字搜尋");
+  //       } else if (weblang.substring(0, 2) !== "zh") {
+  //         $("header")
+  //           .find(".accesskey")
+  //           .attr("title", "header");
+  //         $(".main")
+  //           .find(".accesskey")
+  //           .attr("title", "content");
+  //         $("footer")
+  //           .find(".accesskey")
+  //           .attr("title", "footer");
+  //         $(".search")
+  //           .find(".accesskey")
+  //           .attr("title", "search");
+  //       }
+  //       /*-----------------------------------*/
+  //       //////// 語言模組 無障礙遊走設定  ////////
+  //       /*-----------------------------------*/
+  //       // $(".language")
+  //       //   .find("ul")
+  //       //   .hide();
+  //       // var openLang = $(".language").children("a");
+  //       // openLang.off().click(function(e) {
+  //       //   $(this)
+  //       //     .next("ul")
+  //       //     .stop(true, true)
+  //       //     .slideToggle();
+  //       //   e.preventDefault();
+  //       // });
+  //       // openLang.keyup(function() {
+  //       //   $(this)
+  //       //     .next("ul")
+  //       //     .stop(true, true)
+  //       //     .slideDown();
+  //       // });
+  //       // $(".language")
+  //       //   .find("ul li:last>a")
+  //       //   .focusout(function() {
+  //       //     $(".language")
+  //       //       .find("ul")
+  //       //       .hide();
+  //       //   });
+  //       // $(document).on("touchend click", function(e) {
+  //       //   var target = e.target;
+  //       //   if (!$(target).is(".language a")) {
+  //       //     $(".language")
+  //       //       .find("ul")
+  //       //       .hide();
+  //       //   }
+  //       // });
+  //       /*------------------------------------*/
+  //       /////////////字型大小 font-size//////////
+  //       /*------------------------------------*/
+  //       $(".font_size")
+  //         .find(".small")
+  //         .click(function(e) {
+  //           $(this)
+  //             .parent("li")
+  //             .siblings("li")
+  //             .find("a")
+  //             .removeClass("active");
+  //           $(".innerpage")
+  //             .removeClass("large_size")
+  //             .addClass("small_size");
+  //           $(this).addClass("active");
+  //           e.preventDefault();
+  //           createCookie("FontSize", "small", 356);
+  //         });
+  //       $(".font_size")
+  //         .find(".medium")
+  //         .click(function(e) {
+  //           $(this)
+  //             .parent("li")
+  //             .siblings("li")
+  //             .find("a")
+  //             .removeClass("active");
+  //           $(".innerpage").removeClass("large_size small_size");
+  //           $(this).addClass("active");
+  //           e.preventDefault();
+  //           createCookie("FontSize", "medium", 356);
+  //         });
+  //       $(".font_size")
+  //         .find(".large")
+  //         .click(function(e) {
+  //           $(this)
+  //             .parent("li")
+  //             .siblings("li")
+  //             .find("a")
+  //             .removeClass("active");
+  //           $(".innerpage")
+  //             .removeClass("small_size")
+  //             .addClass("large_size");
+  //           $(this).addClass("active");
+  //           e.preventDefault();
+  //           createCookie("FontSize", "large", 356);
+  //         });
+
+  //       function createCookie(name, value, days) {
+  //         if (days) {
+  //           var date = new Date();
+  //           date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+  //           var expires = "; expires=" + date.toGMTString();
+  //         } else expires = "";
+  //         document.cookie = name + "=" + value + expires + "; path=/";
+  //       }
+
+  //       function readCookie(name) {
+  //         var nameEQ = name + "=";
+  //         var ca = document.cookie.split(";");
+  //         for (var i = 0; i < ca.length; i++) {
+  //           var c = ca[i];
+  //           while (c.charAt(0) == " ") c = c.substring(1, c.length);
+  //           if (c.indexOf(nameEQ) == 0)
+  //             return c.substring(nameEQ.length, c.length);
+  //         }
+  //         return null;
+  //       }
+  //       window.onload = function(e) {
+  //         var cookie = readCookie("FontSize");
+  //         //alert('cookie='+cookie);
+  //         if (cookie == "small") {
+  //           //$('.font_size').find('.small').click();
+  //           $(".font_size")
+  //             .find(".small")
+  //             .parent("li")
+  //             .siblings("li")
+  //             .find("a")
+  //             .removeClass("active");
+  //           $(".innerpage")
+  //             .removeClass("large_size medium_size")
+  //             .addClass("small_size");
+  //           $(".font_size")
+  //             .find(".small")
+  //             .addClass("active");
+  //           e.preventDefault();
+  //         } else {
+  //           if (cookie == "large") {
+  //             //$('.font_size').find('.large').click();
+  //             $(".font_size")
+  //               .find(".large")
+  //               .parent("li")
+  //               .siblings("li")
+  //               .find("a")
+  //               .removeClass("active");
+  //             $(".innerpage")
+  //               .removeClass("small_size medium_size")
+  //               .addClass("large_size");
+  //             $(".font_size")
+  //               .find(".large")
+  //               .addClass("active");
+  //             e.preventDefault();
+  //           } else {
+  //             //這裡是預設宣告
+  //             //$('.font_size').find('.medium').click();
+  //             $(".font_size")
+  //               .find(".medium")
+  //               .parent("li")
+  //               .siblings("li")
+  //               .find("a")
+  //               .removeClass("active");
+  //             $(".innerpage").removeClass("large_size small_size");
+  //             $(".font_size")
+  //               .find(".medium")
+  //               .addClass("active");
+  //             e.preventDefault();
+  //           }
+  //         }
+  //       };
+  //     });
+  //   });
+  // },
 };
 </script>
 <template>
   <!-- header Start -->
+  <div
+    v-if="m_menu"
+    class="m_area sidebar"
+    :class="[{ sidebar_open: sidebarMenuOpen }]"
+  >
+    <HyMenu />
+    <HyNavigation />
+    <button type="button" class="sidebarClose" @click="handleMeun">
+      關閉
+    </button>
+  </div>
+  <div
+    v-if="m_menu"
+    :class="['menu_overlay', { menu_overlay_open: sidebarMenuOpen }]"
+    @click="handleMeun"
+  ></div>
   <header class="header">
+    <transition name="slidedown">
+      <HySearch v-if="m_search" class="m_search" />
+    </transition>
     <div class="container">
       <a
         class="accesskey"
@@ -285,126 +514,34 @@ export default {
             <li><a href="#">常見問答</a></li>
           </ul>
         </div>
-        <!-- font_size -->
-        <div class="font_size">
-          <span>字型大小：</span>
-          <!-- 英文用<span>font-size：</span> -->
-          <ul>
-            <li><a href="#" class="small">小</a></li>
-            <li><a href="#" class="medium">中</a></li>
-            <li><a href="#" class="large">大</a></li>
-          </ul>
-        </div>
         <!-- language -->
         <HyLanguage />
       </nav>
+      <!-- 手機版本按鈕 -->
+      <button
+        v-if="menuBtn"
+        @click="handleMeun"
+        type="button"
+        class="sidebarCtrl"
+      >
+        側欄選單 <span></span><span></span><span></span>
+      </button>
+      <button
+        v-if="menuBtn"
+        @click="handleSearch"
+        type="button"
+        class="searchCtrl"
+      >
+        查詢
+      </button>
       <!-- navigation End -->
       <h1>
         <router-link to="/">
           <img src="~@/assets/images/logo.png" alt="網站標題" />
         </router-link>
       </h1>
-      <!-- Search Start -->
-      <div class="search" role="search">
-        <div class="form_grp">
-          <label for="mustSameAsId">搜尋</label>
-          <input
-            name="username"
-            id="mustSameAsId"
-            type="text"
-            placeholder="請輸入文字"
-            accesskey="S"
-            title="請輸入文字"
-            aria-label="搜尋網站內容"
-          />
-          <input name="" type="submit" value="查詢" class="btn btn-search" />
-        </div>
-        <div class="btn_grp">
-          <input name="" type="submit" value="進階搜尋" class="btn" />
-        </div>
-        <div class="keywordHot">
-          <ul>
-            <li><a href="#">熱門熱門</a></li>
-            <li><a href="#">查詢</a></li>
-            <li><a href="#">字詞三</a></li>
-          </ul>
-        </div>
-      </div>
-      <!-- Search End -->
-      <!-- menu Start -->
-      <nav class="menu" role="navigation" aria-label="About page">
-        <ul>
-          <li>
-            <!-- <a href="#">第一層選單</a> -->
-            <router-link to="/np_template">第一層選單</router-link>
-            <ul>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-            </ul>
-          </li>
-          <li><router-link to="/lp_template">第一層選單</router-link></li>
-          <!-- <li><a href="http://www.google.com">第一層有連結</a></li> -->
-          <li>
-            <router-link to="/lp_table_template">第一層選單</router-link>
-            <!-- <a href="http://www.google.com">第一層有連結</a> -->
-            <ul>
-              <li><a href="http://www.google.com">第二層有連結</a></li>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-            </ul>
-          </li>
-          <li>
-            <router-link to="/Qp_template">第一層選單</router-link>
-            <ul>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-              <li>
-                <a href="http://www.google.com">第二層有連結</a>
-                <ul>
-                  <li>
-                    <a href="http://www.google.com">第三層選單有下層</a>
-                    <ul>
-                      <li><a href="#">第四層選單</a></li>
-                      <li><a href="#">第四層選單</a></li>
-                    </ul>
-                  </li>
-                  <li>
-                    <a href="http://www.google.com">第三層選單有連結</a>
-                  </li>
-                  <li><a href="#">第三層選單</a></li>
-                </ul>
-              </li>
-              <li><a href="#">第二層選單</a></li>
-            </ul>
-          </li>
-          <li>
-            <router-link to="/lp_album_template">第一層選單</router-link>
-            <!-- <a href="#">第一層選單</a> -->
-            <ul>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-            </ul>
-          </li>
-          <li>
-            <a href="#">第一層選單</a>
-            <ul>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-              <li><a href="#">第二層選單</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
+      <HySearch />
+      <HyMenu />
       <!-- menu End -->
     </div>
   </header>
@@ -412,6 +549,23 @@ export default {
 </template>
 
 <style lang="scss">
+.slidedown-enter-active,
+.slidedown-leave-active {
+  transition: height 1s ease-out;
+}
+
+.slidedown-enter-to,
+.slidedown-leave-from {
+  overflow: hidden;
+  max-height: 200px;
+}
+
+.slidedown-enter-from,
+.slidedown-leave-to {
+  overflow: hidden;
+  max-height: 0;
+}
+
 // //header
 .header {
   position: relative;
@@ -585,6 +739,7 @@ export default {
   font-size: 0.938em;
   margin: 1em 0.5em;
   box-sizing: border-box;
+  transition: 0.5s all;
 
   @include screen("mobile") {
     display: none;
@@ -648,13 +803,13 @@ export default {
     min-width: auto;
     padding: 0.8em 0.3em;
     display: block;
-    height: auto;
+    //height: auto;
     position: fixed;
     top: 60px;
     left: 0;
     z-index: 98;
     background: #333;
-    display: none;
+    //display: none;
     margin: 0;
 
     label {

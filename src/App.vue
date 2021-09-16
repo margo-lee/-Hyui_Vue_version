@@ -38,21 +38,23 @@ export default {
           .find("li")
           .has("ul")
           .addClass("hasChild");
-        _megamenu
+        /*_megamenu
           .find("li")
           .has("ul")
-          .addClass("hasChild");
+          .addClass("hasChild");*/
         var liHasChild = _menu.find("li.hasChild");
         var liHasChild2 = _megamenu.children("ul").children("li.hasChild");
         /*-----------------------------------*/
         ////////////// 行動版選單切換////////////
         /*-----------------------------------*/
-        _body.prepend(
-          '<aside class="sidebar"><div class="m_area"><button type="button" class="sidebarClose">關閉</button></div><div class="menu_overlay"></div></aside>'
-        );
-        $("header .container").prepend(
-          '<button type="button" class="sidebarCtrl">側欄選單</button><button type="button" class="searchCtrl">查詢</button>'
-        );
+        //行動版漢堡按鈕
+        // _body.prepend(
+        //   '<aside class="sidebar"><div class="m_area"><button type="button" class="sidebarClose">關閉</button></div><div class="menu_overlay"></div></aside>'
+        // );
+        // $("header .container").prepend(
+        //   '<button type="button" class="sidebarCtrl">側欄選單</button><button type="button" class="searchCtrl">查詢</button>'
+        // );
+
         var menu_status = false,
           _sidebar = $(".sidebar"),
           _search = $(".search"),
@@ -61,17 +63,16 @@ export default {
           _sidebarCtrl = $(".sidebarCtrl"),
           _overlay = $(".menu_overlay"),
           _mArea = $(".m_area");
-        console.log(_mArea);
-        _sidebarCtrl.append("<span></span><span></span><span></span>");
+        // _sidebarCtrl.append("<span></span><span></span><span></span>");
         var search_mode = false;
         // 打開選單 function
         function showSidebar() {
           _sidebar.show();
           _mArea.show();
           _mArea.animate({ "margin-left": 0 }, 400);
-          _body.addClass("noscroll");
+          // _body.addClass("noscroll");
           _overlay.fadeIn();
-          $(".m_search").hide();
+          // $(".m_search").hide();
           search_mode = false;
         }
 
@@ -92,17 +93,17 @@ export default {
         }
         // 打開選單動作
         _sidebarCtrl.click(function(e) {
-          showSidebar();
+          // showSidebar();
           e.preventDefault();
         });
         // 關閉動作
-        _overlay
-          .add(_sidebarClose)
-          .off()
-          .click(function() {
-            hideSidebar();
-          });
-        _overlay.off("mouseenter");
+        // _overlay
+        //   .add(_sidebarClose)
+        //   .off()
+        //   .click(function() {
+        //     hideSidebar();
+        //   });
+        // _overlay.off("mouseenter");
         // 無障礙tab設定
         // menu
         liHasChild.children("a").keyup(function() {
@@ -126,62 +127,65 @@ export default {
           _menu.find("li ul").hide();
         });
         // megamenu
-        liHasChild2.children("a").keyup(function() {
-          $(this)
-            .siblings("ul")
-            .fadeIn();
-          $(this)
-            .siblings("ul")
-            .find("ul")
-            .fadeIn();
-          $(this)
-            .parent("li")
-            .siblings()
-            .focus(function() {
-              $(this).hide();
-            });
-        });
-        _megamenu
-          .children("ul")
-          .children("li")
-          .keyup(function() {
-            $(this)
-              .siblings()
-              .children("ul")
-              .hide();
-          });
-        _megamenu.find("li:last>a").focusout(function() {
-          _menu.find("li ul").hide();
-        });
+        // liHasChild2.children("a").keyup(function() {
+        //   $(this)
+        //     .siblings("ul")
+        //     .fadeIn();
+        //   $(this)
+        //     .siblings("ul")
+        //     .find("ul")
+        //     .fadeIn();
+        //   $(this)
+        //     .parent("li")
+        //     .siblings()
+        //     .focus(function() {
+        //       $(this).hide();
+        //     });
+        // });
+        // _megamenu
+        //   .children("ul")
+        //   .children("li")
+        //   .keyup(function() {
+        //     $(this)
+        //       .siblings()
+        //       .children("ul")
+        //       .hide();
+        //   });
+        // _megamenu.find("li:last>a").focusout(function() {
+        //   _menu.find("li ul").hide();
+        // });
         // 先複製過去
-        _nav.clone().prependTo(_mArea);
-        _menu.clone().prependTo(_mArea);
-        _megamenu.clone().prependTo(_mArea);
-        _search
-          .clone()
-          .prependTo(_body)
-          .addClass("m_search");
-        var liHasChild_level1 = $("aside .menu ul").children("li.hasChild"),
-          liHasChild_level2 = $("aside .menu ul ul").children("li.hasChild"),
-          liHasChild_level3 = $("aside .menu ul ul ul").children("li.hasChild"),
-          subMenuWidth = liHasChild
-            .first()
-            .children("ul")
-            .outerWidth();
+        // _nav.clone().prependTo(_mArea);
+        // _menu.clone().prependTo(_mArea);
+        // _megamenu.clone().prependTo(_mArea);
+        // _search
+        //   .clone()
+        //   .prependTo(_body)
+        //   .addClass("m_search");
+        // var liHasChild_level1 = $("aside .menu ul").children("li.hasChild"),
+        //   liHasChild_level2 = $("aside .menu ul ul").children("li.hasChild"),
+        //   liHasChild_level3 = $("aside .menu ul ul ul").children("li.hasChild"),
+        // var liHasChild_level1 = $(".menu ul").children("li.hasChild");
+        // var liHasChild_level2 = $(".menu ul ul").children("li.hasChild");
+        // var liHasChild_level3 = $(".menu ul ul ul").children("li.hasChild");
+        // var subMenuWidth = liHasChild
+        //   .first()
+        //   .children("ul")
+        //   .outerWidth();
         // megamenu
-        var liHasChild2_level1 = $("aside .megamenu ul").children(
-            "li.hasChild"
-          ),
-          liHasChild2_level2 = $("aside .megamenu ul ul").children(
-            "li.hasChild"
-          ),
-          liHasChild2_level3 = $("aside .megamenu ul ul ul").children(
-            "li.hasChild"
-          ),
-          subMenuWidth2 = liHasChild2
-            .first()
-            .children("ul")
-            .outerWidth();
+        // var liHasChild2_level1 = $("aside .megamenu ul").children(
+        //     "li.hasChild"
+        //   ),
+        //   liHasChild2_level2 = $("aside .megamenu ul ul").children(
+        //     "li.hasChild"
+        //   ),
+        //   liHasChild2_level3 = $("aside .megamenu ul ul ul").children(
+        //     "li.hasChild"
+        //   ),
+        //   subMenuWidth2 = liHasChild2
+        //     .first()
+        //     .children("ul")
+        //     .outerWidth();
         // 切換PC/Mobile 選單
         function mobileMenu() {
           ww = _window.outerWidth();
@@ -190,151 +194,151 @@ export default {
             /////////////// 手機版設定 /////////////
             /*-----------------------------------*/
             menu_status = false;
-            _sidebar.hide();
-            _overlay.hide();
-            _mArea.css({
-              "margin-left": _mArea.width() * -1 + "px",
-            });
-            liHasChild_level1.on({
-              mouseenter: function() {
-                $(this)
-                  .children("ul")
-                  .stop(true, true)
-                  .slideDown("600");
-              },
-              mouseleave: function() {
-                $(this)
-                  .parent()
-                  .siblings("ul")
-                  .hide();
-                $(this)
-                  .children("ul")
-                  .stop(true, true)
-                  .slideUp("600");
-              },
-            });
-            // 副選單點出
-            liHasChild.off().on("mouseenter,mouseleave");
-            liHasChild.on("touchstart", function() {
-              $(this).off("mouseenter,mouseleave");
-            });
-            // 第一層選單
-            liHasChild_level1.off().on("click", function(e) {
-              $(this)
-                .siblings("li")
-                .find("ul")
-                .stop(true, true)
-                .slideUp("600");
-              $(this)
-                .children("ul")
-                .stop(true, true)
-                .slideDown("600");
-            });
-            // 第二層選單
-            liHasChild_level2.off().on("click", function(e) {
-              $(this)
-                .siblings("li")
-                .children("ul")
-                .stop(true, true)
-                .slideUp("600");
-              $(this)
-                .children("ul")
-                .stop(true, true)
-                .slideDown("600");
-            });
-            // 第三層選單
-            liHasChild_level3.off().on("click", function(e) {
-              e.preventDefault();
-            });
+            // _sidebar.hide();
+            // _overlay.hide();
+            // _mArea.css({
+            //   "margin-left": _mArea.width() * -1 + "px",
+            // });
+            // liHasChild_level1.on({
+            //   mouseenter: function() {
+            //     $(this)
+            //       .children("ul")
+            //       .stop(true, true)
+            //       .slideDown("600");
+            //   },
+            //   mouseleave: function() {
+            //     $(this)
+            //       .parent()
+            //       .siblings("ul")
+            //       .hide();
+            //     $(this)
+            //       .children("ul")
+            //       .stop(true, true)
+            //       .slideUp("600");
+            //   },
+            // });
+            // // 副選單點出
+            // liHasChild.off().on("mouseenter,mouseleave");
+            // liHasChild.on("touchstart", function() {
+            //   $(this).off("mouseenter,mouseleave");
+            // });
+            // // 第一層選單
+            // liHasChild_level1.off().on("click", function(e) {
+            //   $(this)
+            //     .siblings("li")
+            //     .find("ul")
+            //     .stop(true, true)
+            //     .slideUp("600");
+            //   $(this)
+            //     .children("ul")
+            //     .stop(true, true)
+            //     .slideDown("600");
+            // });
+            // // 第二層選單
+            // liHasChild_level2.off().on("click", function(e) {
+            //   $(this)
+            //     .siblings("li")
+            //     .children("ul")
+            //     .stop(true, true)
+            //     .slideUp("600");
+            //   $(this)
+            //     .children("ul")
+            //     .stop(true, true)
+            //     .slideDown("600");
+            // });
+            // // 第三層選單
+            // liHasChild_level3.off().on("click", function(e) {
+            //   e.preventDefault();
+            // });
             //手機版第第一層點了不會進入內頁，拿掉第一層的連結無作用
-            $(".sidebar .menu .hasChild")
-              .children("a")
-              .off()
-              .on("click", function(e) {
-                e.preventDefault();
-              });
+            // $(".sidebar .menu .hasChild")
+            //   .children("a")
+            //   .off()
+            //   .on("click", function(e) {
+            //     e.preventDefault();
+            //   });
             // megamenu
-            liHasChild2_level1.on({
-              mouseenter: function() {
-                $(this)
-                  .children("ul")
-                  .stop(true, true)
-                  .slideDown("600");
-              },
-              mouseleave: function() {
-                $(this)
-                  .parent()
-                  .siblings("ul")
-                  .hide();
-                $(this)
-                  .children("ul")
-                  .stop(true, true)
-                  .slideUp("600");
-              },
-            });
-            // 副選單點出
-            liHasChild2.off().on("mouseenter,mouseleave");
-            liHasChild2.on("touchstart", function() {
-              $(this).off("mouseenter,mouseleave");
-            });
+            // liHasChild2_level1.on({
+            //   mouseenter: function() {
+            //     $(this)
+            //       .children("ul")
+            //       .stop(true, true)
+            //       .slideDown("600");
+            //   },
+            //   mouseleave: function() {
+            //     $(this)
+            //       .parent()
+            //       .siblings("ul")
+            //       .hide();
+            //     $(this)
+            //       .children("ul")
+            //       .stop(true, true)
+            //       .slideUp("600");
+            //   },
+            // });
+            // // 副選單點出
+            // liHasChild2.off().on("mouseenter,mouseleave");
+            // liHasChild2.on("touchstart", function() {
+            //   $(this).off("mouseenter,mouseleave");
+            // });
             // 第一層選單
-            liHasChild2_level1.off().on("click", function(e) {
-              $(this)
-                .siblings("li")
-                .find("ul")
-                .stop(true, true)
-                .slideUp("600");
-              $(this)
-                .children("ul")
-                .stop(true, true)
-                .slideDown("600");
-            });
+            // liHasChild2_level1.off().on("click", function(e) {
+            //   $(this)
+            //     .siblings("li")
+            //     .find("ul")
+            //     .stop(true, true)
+            //     .slideUp("600");
+            //   $(this)
+            //     .children("ul")
+            //     .stop(true, true)
+            //     .slideDown("600");
+            // });
             // 第二層選單
-            liHasChild2_level2.off().on("click", function(e) {
-              $(this)
-                .siblings("li")
-                .children("ul")
-                .stop(true, true)
-                .slideUp("600");
-              $(this)
-                .children("ul")
-                .stop(true, true)
-                .slideDown("600");
-            });
-            // 第三層選單
-            liHasChild2_level3.off().on("click", function(e) {
-              e.preventDefault();
-            });
+            // liHasChild2_level2.off().on("click", function(e) {
+            //   $(this)
+            //     .siblings("li")
+            //     .children("ul")
+            //     .stop(true, true)
+            //     .slideUp("600");
+            //   $(this)
+            //     .children("ul")
+            //     .stop(true, true)
+            //     .slideDown("600");
+            // });
+            // // 第三層選單
+            // liHasChild2_level3.off().on("click", function(e) {
+            //   e.preventDefault();
+            // });
             //手機版第第一層點了不會進入內頁，拿掉第一層的連結無作用
-            $(".sidebar .megamenu .hasChild")
-              .children("a")
-              .off()
-              .on("click", function(e) {
-                e.preventDefault();
-              });
+            // $(".sidebar .megamenu .hasChild")
+            //   .children("a")
+            //   .off()
+            //   .on("click", function(e) {
+            //     e.preventDefault();
+            //   });
 
-            _body.off("touchmove");
-            $(".m_search").hide();
-            $(".language")
-              .find("ul")
-              .hide();
+            // _body.off("touchmove");
+            // $(".m_search").hide();
+            // $(".language")
+            //   .find("ul")
+            //   .hide();
           } else {
             /*-----------------------------------*/
             /////////////// PC版設定 /////////////
             /*-----------------------------------*/
-            hideSidebar();
-            _body.removeClass("noscroll");
-            _nav.prependTo(".header .container");
-            _search.appendTo(".header .container");
-            _menu.appendTo(".header .container");
-            _megamenu.appendTo(".header .container");
-            _search.removeClass("m_search");
-            $(".m_search").hide();
-            _search.show();
+            // hideSidebar();
+            // _body.removeClass("noscroll");
+            // _nav.prependTo(".header .container");
+            // _search.appendTo(".header .container");
+            // _menu.appendTo(".header .container");
+            // _megamenu.appendTo(".header .container");
+            // _search.removeClass("m_search");
+            // $(".m_search").hide();
+            // _search.show();
             search_mode = false;
-            $(".language")
-              .find("ul")
-              .hide();
+            // $(".language")
+            //   .find("ul")
+            //   .hide();
             // 副選單滑出
             liHasChild.on({
               mouseenter: function() {
@@ -440,73 +444,55 @@ export default {
           clearTimeout(resizeTimer);
           resizeTimer = setTimeout(function() {
             // search_mode = true;
-            mobileMenu();
+            // mobileMenu();
           }, 50);
         });
         mobileMenu();
         // 行動版查詢
         var _searchCtrl = $(".searchCtrl");
-        $(".m_search").hide();
-        _searchCtrl.off().on("click", function(e) {
-          if (!search_mode) {
-            $(".m_search")
-              .stop(true, false)
-              .slideDown("400");
-            _window.off("resize");
-            $(".m_search")
-              .find('input[type="text"]')
-              .focus();
-            search_mode = true;
-          } else {
-            $(".m_search").hide();
-            search_mode = false;
-          }
-        });
+        // $(".m_search").hide();
+        // _searchCtrl.off().on("click", function(e) {
+        //   if (!search_mode) {
+        //     $(".m_search")
+        //       .stop(true, false)
+        //       .slideDown("400");
+        //     _window.off("resize");
+        //     $(".m_search")
+        //       .find('input[type="text"]')
+        //       .focus();
+        //     search_mode = true;
+        //   } else {
+        //     $(".m_search").hide();
+        //     search_mode = false;
+        //   }
+        // });
         // 如果點在外面
-        $(".main")
-          .off()
-          .on("click touchend", function(e) {
-            $(".m_search").hide();
-            search_mode = false;
-          });
+        // $(".main")
+        //   .off()
+        //   .on("click touchend", function(e) {
+        //     $(".m_search").hide();
+        //     search_mode = false;
+        //   });
         // 固定版頭
-        var headerHeight = Math.floor($(".header").outerHeight(true)),
-          customHeight = 176 - 40; // header高度 - menu高度，每個專案不同，請另外填寫。
-        if ($("header .menu").length > 0) {
-          var stickyMenuTop = Math.floor($("header .menu").offset().top);
+        // var headerHeight = Math.floor($(".header").outerHeight(true)),
+        //   customHeight = 176 - 40; // header高度 - menu高度，每個專案不同，請另外填寫。
+        // if ($("header .menu").length > 0) {
+        //   var stickyMenuTop = Math.floor($("header .menu").offset().top);
+        //   headerHeight = Math.floor($(".header").outerHeight(true));
+        //   var menuH = Math.floor(_menu.outerHeight(true));
+        //   $(window).bind("load scroll resize", function(e) {
+        //     ww = _window.outerWidth();
+        //     if (ww >= wwSmall && $(this).scrollTop() > stickyMenuTop) {
+        //       $(".header").addClass("fixed");
+        //       $(".header").css("margin-top", -1 * customHeight);
+        //     } else {
+        //       $(".header").removeClass("fixed");
+        //       $(".header").css("margin-top", 0);
+        //       $(".main").css("margin-top", 0);
+        //     }
+        //   });
+        // }
 
-          headerHeight = Math.floor($(".header").outerHeight(true));
-          var menuH = Math.floor(_menu.outerHeight(true));
-          $(window).bind("load scroll resize", function(e) {
-            ww = _window.outerWidth();
-            if (ww >= wwSmall && $(this).scrollTop() > stickyMenuTop) {
-              $(".header").addClass("fixed");
-              $(".header").css("margin-top", -1 * customHeight);
-              // $('.main').css('margin-top', headerHeight);
-              // $('.main').css('margin-top', 0);
-            } else {
-              $(".header").removeClass("fixed");
-              $(".header").css("margin-top", 0);
-              $(".main").css("margin-top", 0);
-            }
-          });
-        }
-        if ($("header .megamenu").length > 0) {
-          var stickyMenuTop2 = Math.floor($("header .megamenu").offset().top);
-          headerHeight = Math.floor($(".header").outerHeight(true));
-          var megamenuH = Math.floor(_megamenu.outerHeight(true));
-          $(window).bind("load scroll resize", function(e) {
-            ww = _window.outerWidth();
-            if (ww >= wwSmall && $(this).scrollTop() > stickyMenuTop2) {
-              $(".header").addClass("fixed");
-              $(".header").css("margin-top", -1 * customHeight);
-            } else {
-              $(".header").removeClass("fixed");
-              $(".header").css("margin-top", 0);
-              $(".main").css("margin-top", 0);
-            }
-          });
-        }
         /*-----------------------------------*/
         //////// 語言模組 無障礙遊走設定  ////////
         /*-----------------------------------*/
@@ -537,18 +523,26 @@ export default {
         // $(document).on("touchend click", function(e) {
         //   var target = e.target;
         //   if (!$(target).is(".language a")) {
-        //     $(".language")
-        //       .find("ul")
-        //       .hide();
+        //       $(".language")
+        //         .find("ul")
+        //         .hide();
         //   }
         // });
       });
     });
+    return {};
   },
 };
 </script>
 
 <template>
+  <!-- <aside class="sidebar">
+    <div class="m_area">
+      <button type="button" class="sidebarClose">關閉</button>
+    </div>
+    <div class="menu_overlay"></div>
+  </aside> -->
+
   <a class="goCenter" href="#center" tabindex="1">按Enter到主內容區</a>
   <!-- wrapper Start -->
   <div class="wrapper">

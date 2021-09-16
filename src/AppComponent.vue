@@ -28,7 +28,7 @@ import HyPaginations from "@/components/HyPaginations.vue";
 import HyThumbnail from "@/components/HyThumbnail.vue";
 import HyTag from "@/components/HyTag.vue";
 
-import { onMounted } from "@vue/runtime-core";
+import { onMounted, ref, watch } from "@vue/runtime-core";
 
 export default {
   components: {
@@ -57,7 +57,7 @@ export default {
     HyTag,
   },
   setup() {
-    onMounted(() => {});
+    return {};
   },
 };
 </script>
