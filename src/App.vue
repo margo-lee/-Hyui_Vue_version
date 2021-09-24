@@ -66,31 +66,31 @@ export default {
         // _sidebarCtrl.append("<span></span><span></span><span></span>");
         var search_mode = false;
         // 打開選單 function
-        function showSidebar() {
-          _sidebar.show();
-          _mArea.show();
-          _mArea.animate({ "margin-left": 0 }, 400);
-          // _body.addClass("noscroll");
-          _overlay.fadeIn();
-          // $(".m_search").hide();
-          search_mode = false;
-        }
+        // function showSidebar() {
+        //   _sidebar.show();
+        //   _mArea.show();
+        //   _mArea.animate({ "margin-left": 0 }, 400);
+        //   // _body.addClass("noscroll");
+        //   _overlay.fadeIn();
+        //   // $(".m_search").hide();
+        //   search_mode = false;
+        // }
 
         // 縮合選單 function
-        function hideSidebar() {
-          _mArea.animate(
-            { "margin-left": _mArea.width() * -1 + "px" },
-            500,
+        // function hideSidebar() {
+        //   _mArea.animate(
+        //     { "margin-left": _mArea.width() * -1 + "px" },
+        //     500,
 
-            function() {
-              _sidebar.fadeOut(200);
-              _mArea.hide();
-            }
-          );
-          _body.removeClass("noscroll");
-          _overlay.fadeOut();
-          liHasChild.children("ul").hide();
-        }
+        //     function() {
+        //       _sidebar.fadeOut(200);
+        //       _mArea.hide();
+        //     }
+        //   );
+        //   _body.removeClass("noscroll");
+        //   _overlay.fadeOut();
+        //   liHasChild.children("ul").hide();
+        // }
         // 打開選單動作
         _sidebarCtrl.click(function(e) {
           // showSidebar();

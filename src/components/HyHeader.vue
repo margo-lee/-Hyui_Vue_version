@@ -6,7 +6,7 @@ import HyFontSize from "@/components/HyFontSize.vue";
 import HySearch from "@/components/HySearch.vue";
 import HyNavigation from "@/components/HyNavigation.vue";
 import HyMenu from "@/components/HyMenu.vue";
-import { test } from "@/components/HyMenu.vue";
+// import { test } from "@/components/HyMenu.vue";
 export default {
   components: {
     HyLanguage,
@@ -21,6 +21,7 @@ export default {
     const m_menu = ref(false);
     const sidebarMenuOpen = ref(false);
     let menuItemOpen = null;
+
     const menuPhoneBtnFn = () => {
       let clientWidth = document.documentElement.clientWidth;
       if (clientWidth < 768) {
@@ -40,11 +41,19 @@ export default {
     };
     watch(sidebarMenuOpen, () => {
       nextTick(() => {
-        console.log("222");
-        // menuItemOpen();
+        // console.log("222");
+        // showSidebar();
       });
     });
     onMounted(() => {
+      var menu_status = false,
+        _sidebar = $(".sidebar"),
+        _search = $(".search"),
+        _nav = $(".navigation"),
+        _sidebarClose = $(".sidebarClose"),
+        _sidebarCtrl = $(".sidebarCtrl"),
+        _overlay = $(".menu_overlay"),
+        _mArea = $(".m_area");
       menuPhoneBtnFn();
       window.addEventListener("resize", menuPhoneBtnFn);
       var stickyMenuTop = Math.floor($("header .menu").offset().top);
@@ -116,7 +125,7 @@ export default {
           e.preventDefault();
         });
       };
-      menuItemOpen();
+      // menuItemOpen();
     });
     return {
       menuBtn,
@@ -893,5 +902,11 @@ export default {
       }
     }
   }
+}
+.sidebar .menu {
+  position: relative;
+}
+.menu ul li ul li.hasChild ul {
+  animation: showMenu 0.3s ease-out;
 }
 </style>

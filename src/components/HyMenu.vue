@@ -3,14 +3,14 @@ import $ from "jquery";
 import { props, watch, ref, onMounted } from "@vue/runtime-core";
 export default {
   setup() {
-    // watch(() => {});
     onMounted(() => {
       var stickyMenuTop = Math.floor($("header .menu").offset().top);
       var customHeight = 176 - 40;
       var _window = $(window);
       var ww = _window.outerWidth();
       var wwSmall = 768;
-      var _menu = $(".menu");
+      // var _menu = $(".menu");
+      // var liHasChild_level1 = $("aside .menu ul").children("li.hasChild");
       // 固定版頭
       var menuFixed = () => {
         $(window).bind("load scroll resize", function(e) {
@@ -27,37 +27,30 @@ export default {
       };
       menuFixed();
     });
-    const test = (e) => {
-      // console.log(document.body.clientWidth);
-
+    const openSideMenu = (e) => {
       const clien_Width = document.body.clientWidth;
-
       if (clien_Width < 768) {
-        console.log("OK");
-        let argetActive = document.querySelectorAll(".hasChild ul");
-        argetActive.forEach((item) => {
-          // console.log(item.style.display);
-          console.log(item.style.display.contains === "contests");
-          // if (item.style.display !== "contents") {
-          //   return;
-          // } else {
-          //   item.style.display = "";
-          // }
-        });
         let targetItem = e.target.nextElementSibling;
-        console.log(targetItem);
-        // targetItem.style.display = "contents";
+        let ul = document.querySelectorAll(".hasChild > ul");
+        if (
+          targetItem.parentElement.parentElement.parentElement.nodeName !== "LI"
+        ) {
+          ul.forEach(function(item) {
+            item.style.display = "";
+          });
+        }
         if (targetItem.style.display === "") {
-          console.log("a");
-          targetItem.style.display = "contents";
+          targetItem.style.display = "block";
+          targetItem.style.position = "relative";
+          targetItem.style.left = 0;
         } else {
           targetItem.style.display = "";
         }
-        //console.log((e.target.nextElementSibling.style.display = "contents"));
       }
     };
+
     return {
-      test,
+      openSideMenu,
     };
   },
 
@@ -125,7 +118,7 @@ export default {
   <!-- menu Start -->
   <nav class="menu" role="navigation" aria-label="About page">
     <ul>
-      <li class="hasChild" @click="test">
+      <li class="hasChild" @click="openSideMenu">
         <!-- <a href="#">第一層選單</a> -->
         <router-link to="/np_template">第一層選單</router-link>
         <ul>
@@ -137,7 +130,7 @@ export default {
       </li>
       <li><router-link to="/lp_template">第一層選單</router-link></li>
       <!-- <li><a href="http://www.google.com">第一層有連結</a></li> -->
-      <li class="hasChild">
+      <li class="hasChild" @click="openSideMenu">
         <router-link to="/lp_table_template">第一層選單</router-link>
         <!-- <a href="http://www.google.com">第一層有連結</a> -->
         <ul>
@@ -151,17 +144,18 @@ export default {
           <li><a href="#">第二層選單</a></li>
         </ul>
       </li>
-      <li class="hasChild" @click.stop="test">
+      <li class="hasChild" @click.stop="openSideMenu">
         <router-link to="/Qp_template">第一層選單</router-link>
         <ul>
           <li><a href="#">第二層選單</a></li>
           <li><a href="#">第二層選單</a></li>
-          <li @click.stop="test">
+          <li @click.stop="openSideMenu">
             <a href="#">第二層有連結</a>
             <!-- <a href="http://www.google.com">第二層有連結</a> -->
             <ul>
               <li>
-                <a href="http://www.google.com">第三層選單有下層</a>
+                <!-- <a href="http://www.google.com">第三層選單有下層</a> -->
+                <a href="#">第三層選單有下層</a>
                 <ul>
                   <li><a href="#">第四層選單</a></li>
                   <li><a href="#">第四層選單</a></li>
@@ -176,7 +170,7 @@ export default {
           <li><a href="#">第二層選單</a></li>
         </ul>
       </li>
-      <li class="hasChild">
+      <li class="hasChild" @click="openSideMenu">
         <router-link to="/lp_album_template">第一層選單</router-link>
         <!-- <a href="#">第一層選單</a> -->
         <ul>
